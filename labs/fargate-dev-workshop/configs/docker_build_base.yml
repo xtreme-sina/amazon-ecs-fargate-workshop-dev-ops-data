@@ -2,6 +2,7 @@ version: 0.2
 phases:
   install:
     commands:
+      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
       - apt-get update
       - apt-get install -y jq
   pre_build:
