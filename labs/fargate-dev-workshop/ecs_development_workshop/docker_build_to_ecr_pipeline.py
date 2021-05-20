@@ -128,6 +128,7 @@ class DockerBuildToEcrPipeline(core.Stack):
                 filename='configs/docker_build_base.yml'),
             environment=aws_codebuild.BuildEnvironment(
                 privileged=True,
+                # compute_type=aws_codebuild.ComputeType.MEDIUM
             ),
             # pass the ecr repo uri into the codebuild project so codebuild knows where to push
             environment_variables={
@@ -141,7 +142,22 @@ class DockerBuildToEcrPipeline(core.Stack):
             description='Deploy to ECR',
             timeout=core.Duration.minutes(60),
         )
-        
+
+        #grant access to all CodeBuild projects to pull images from ECR
+        statement = iam.PolicyStatement(
+            actions=['ecr:GetAuthorizationToken',
+                     'ecr:BatchCheckLayerAvailability',
+                     'ecr:GetDownloadUrlForLayer',
+                     'ecr:BatchGetImage',
+                     'ecr:DescribeRepositories',
+                     'ecr:DescribeImages',
+                     'ecr:ListImages'],
+            resources=['*']
+        )
+        cb_docker_build_push.add_to_role_policy(statement)
+        cb_docker_build_lint.add_to_role_policy(statement)
+        cb_docker_build_secretscan.add_to_role_policy(statement)
+
         pipeline.add_stage(
             stage_name="Source",
             actions=[source_action]
