@@ -134,7 +134,7 @@ before
 after
 
     FROM httpd:2.4.41
-    RUN apk -q add libcap=2.27-r0 --no-cache
+    RUN apk -q add libcap=2.46-r0 --no-cache
     
 These changes ensure we are pulling a certain version of the base docker image as well as the package we are adding to our container.
 
