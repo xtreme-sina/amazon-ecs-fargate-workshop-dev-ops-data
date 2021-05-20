@@ -9,3 +9,12 @@ labs/fargate-workshop-cdk/fargate_workshop_cdk/__pycache__/
 cdk.out
 site/public/
 cdk.context.json
+
+### APPLE ###
+.DS_Store
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
