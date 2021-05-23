@@ -17,4 +17,4 @@ phases:
       - mvn clean package
       - mvn spring-boot:build-image
       - docker tag $project_name:$tag $ecr:$ecr_tag
-      - docker push $ecr
+      - docker push $ecr:$ecr_tag
