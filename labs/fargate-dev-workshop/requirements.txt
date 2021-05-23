@@ -6,6 +6,7 @@ aws-cdk.aws-ecr-assets
 aws-cdk.aws-s3
 aws-cdk.aws-s3-assets
 aws_cdk.aws_ecs_patterns
+aws_cdk.aws_eks
 aws_cdk.aws_logs
 
 aws_cdk.aws_elasticloadbalancingv2

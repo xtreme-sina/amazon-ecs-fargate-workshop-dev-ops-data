@@ -8,10 +8,11 @@ import os
 from ecs_development_workshop.docker_build_to_ecr_pipeline import DockerBuildToEcrPipeline
 from ecs_development_workshop.code_pipeline_configuration import ContainerPipelineConfiguration
 from ecs_development_workshop.ecs_inf_fargate import EcsInfFargate
+from ecs_development_workshop.eks_fargate import EksFargate
 
 app = core.App()
 
-#BootStrap Developer Pipeline
+# BootStrap Developer Pipeline
 developerPipelineTest = ContainerPipelineConfiguration(
     projectName = "fargate-dev-workshop",
     stage = "test"
@@ -27,6 +28,13 @@ DockerBuildToEcrPipeline(
 EcsInfFargate(
     app, 
     "ecs-inf-test", 
+    config = developerPipelineTest,
+    env={'account': os.environ['CDK_DEFAULT_ACCOUNT'], 'region': os.environ['CDK_DEFAULT_REGION']}
+)
+
+EksFargate(
+    app,
+    "eks-deployment",
     config = developerPipelineTest,
     env={'account': os.environ['CDK_DEFAULT_ACCOUNT'], 'region': os.environ['CDK_DEFAULT_REGION']}
 )
