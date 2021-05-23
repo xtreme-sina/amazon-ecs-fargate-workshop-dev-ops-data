@@ -31,29 +31,31 @@ class EksFargate(core.Stack):
                                assumed_by=iam.AccountRootPrincipal(),
                                )
 
-        # # EKS on Fargate cluster
-        # cluster = eks.FargateCluster(scope=self, id='EksOnFargate',
-        #                              vpc=vpc,
-        #                              masters_role=master_role,
-        #                              version=eks.KubernetesVersion.V1_19,
-        #                              output_config_command=True,
-        #                              endpoint_access=eks.EndpointAccess.PUBLIC_AND_PRIVATE,
-        #                              )
+        # EKS on Fargate cluster
+        cluster = eks.FargateCluster(scope=self, id='EksOnFargate',
+                                     vpc=vpc,
+                                     masters_role=master_role,
+                                     version=eks.KubernetesVersion.V1_19,
+                                     output_config_command=True,
+                                     output_cluster_name=True,
+                                     output_masters_role_arn=True,
+                                     endpoint_access=eks.EndpointAccess.PUBLIC_AND_PRIVATE,
+                                     )
         # EKS with managed nodes
-        cluster = eks.Cluster(scope=self, id='EksManagedNodes',
-                              vpc=vpc,
-                              masters_role=master_role,
-                              version=eks.KubernetesVersion.V1_19,
-                              output_config_command=True,
-                              output_cluster_name=True,
-                              output_masters_role_arn=True,
-                              default_capacity=3,
-                              default_capacity_instance=ec2.InstanceType.of(
-                                  ec2.InstanceClass.STANDARD5,
-                                  ec2.InstanceSize.LARGE
-                              ),
-                              endpoint_access=eks.EndpointAccess.PUBLIC_AND_PRIVATE,
-                              )
+        # cluster = eks.Cluster(scope=self, id='EksManagedNodes',
+        #                       vpc=vpc,
+        #                       masters_role=master_role,
+        #                       version=eks.KubernetesVersion.V1_19,
+        #                       output_config_command=True,
+        #                       output_cluster_name=True,
+        #                       output_masters_role_arn=True,
+        #                       default_capacity=3,
+        #                       default_capacity_instance=ec2.InstanceType.of(
+        #                           ec2.InstanceClass.STANDARD5,
+        #                           ec2.InstanceSize.LARGE
+        #                       ),
+        #                       endpoint_access=eks.EndpointAccess.PUBLIC_AND_PRIVATE,
+        #                       )
 
         cluster.node.add_dependency(vpc)
 

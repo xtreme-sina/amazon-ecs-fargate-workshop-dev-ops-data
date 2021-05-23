@@ -1,6 +1,6 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: MIT-0
 
-from code_pipeline_configuration import ContainerPipelineConfiguration
+from ecs_development_workshop.code_pipeline_configuration import ContainerPipelineConfiguration
 from aws_cdk import (
     aws_codebuild,
     aws_iam as iam,
